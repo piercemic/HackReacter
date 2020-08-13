@@ -594,64 +594,54 @@ function findShortestElement(arr) {
 }
 
 //Array Methods 13:1 getLargestElement
- function getLargestElement(arr) {
-  return arr.length === 0 ? 0
-    : Math.max(...arr);
+function getLargestElement(arr) {
+  return Math.max(...arr);
 }
 
 //Array Methods 13:2 computeSumOfAllElements
 function computeSumOfAllElements(arr) {
   return !arr.length ? 0
-    :arr.reduce((acc, cur) => acc + cur);
+    : arr.reduce((acc, cur) => acc + cur);
 }
 
 //Objects 7:1 getElementsThatEqual10AtProperty
 function getElementsThatEqual10AtProperty(obj, key) {
-  if (!obj[key] || !obj[key].length) return [];
+  if (obj[key] === undefined) return [];
+  if (!Array.isArray(obj[key])) return [];
+  if (!obj[key].length) return [];
   let arr = [];
   for (let i = 0; i < obj[key].length; i++) {
-    if (obj[key][i] === 10) {
-      arr.push(10);
-    }
+    if (obj[key][i] === 10) arr.push(obj[key][i]);
   }
-  return arr;
+  return !arr.length ? [] : arr;
 }
 
 //Objects 7:2 getElementsLessThan100AtProperty
 function getElementsLessThan100AtProperty(obj, key) {
-  if (!obj[key] || !obj[key].length) return [];
-  let arr = [];
-  for (let i = 0; i < obj[key].length; i++) {
-    if (obj[key][i] < 100) {
-      arr.push(obj[key][i])
-    }
-  }
-  return arr;
+  if (!Array.isArray(obj[key]) || !obj[key].length) return [];
+  const arr = obj[key].filter(num => num < 100);
+  return !arr.length ? [] : arr;
 }
 
 //Advanced 4:1 countAllCharacters
 function countAllCharacters(str) {
-  let obj = {};
+  if (!str.length) return {};
+  let charCount = {};
   for (let i = 0; i < str.length; i++) {
-    if (obj[str[i]] === undefined) {
-      obj[str[i]] = 1;
+    if (!charCount[str[i]]) {
+      charCount[str[i]] = 1;
     } else {
-      obj[str[i]]++;
+      charCount[str[i]]++;
     }
   }
-  return obj;
+  return charCount;
 }
 
 //Objects 8:1
 function getElementsGreaterThan10AtProperty(obj, key) {
-  if (!obj[key] || !obj[key].length) return [];
-  let arr = [];
-  for (let i = 0; i < obj[key].length; i++) {
-    if (obj[key][i] > 10) {
-      arr.push(obj[key][i]);
-    }
-  }
-  return arr;
+  if (!obj[key] || !obj[key].length || !Array.isArray(obj[key])) return [];
+  const arr = obj[key].filter(num => num > 10);
+  return !arr.length ? [] : arr;
 }
 
 //Objects 8:2
@@ -662,14 +652,13 @@ function getFirstElementOfProperty(obj, key) {
 
 //Objects 8:3
 function getNthElementOfProperty(obj, key, n) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? undefined
+  return !obj[key] || !obj[key].length || !Array.isArray(obj[key]) ? undefined
     : obj[key][n];
 }
 
 //Objects 8:4 getLastElementOfProperty
 function getLastElementOfProperty(obj, key) {
-  return Array.isArray(obj[key]) && obj[key].length ?
-    obj[key].pop() : undefined;
+  return Array.isArray(obj[key]) && obj[key].length ? obj[key].pop() : undefined;
 }
 
 //Array Methods 8:1 removeElement
@@ -684,68 +673,67 @@ function keep(array, keeper) {
 
 //Array Methods 8:3 computeAverageOfNumbers
 function computeAverageOfNumbers(nums) {
-  if (nums.length === 0) return 0;
-  return nums.reduce((acc, cur) => acc + cur) / nums.length;
+  return !nums.length ? 0 : nums.reduce((acc, cur) => acc + cur) / nums.length;
 }
 
 //Objects 9:1 getOddLengthWordsAtProperty
 function getOddLengthWordsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? []
-    : obj[key].filter(x => x.length % 2 !== 0);
+  return Array.isArray(obj[key]) && obj[key].length ? obj[key].filter(x => x.length % 2 !== 0)
+    : [];
 }
 
 //Objects 9:2 getAverageOfElementsAtProperty
 function getAverageOfElementsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? 0
-    : obj[key].reduce((acc, cur) => acc + cur) / obj[key].length;
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].reduce((acc, cur) => acc + cur) / obj[key].length : 0;
 }
 
 //Objects 9:3 getEvenLengthWordsAtProperty
 function getEvenLengthWordsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? []
-      : obj[key].filter(word => word.length % 2 === 0);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].filter(x => x.length % 2 === 0) : [];
 }
 
 //Objects 10:1 getSquaredElementsAtProperty
 function getSquaredElementsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? []
-    : obj[key].map(el => el * el);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].map(x => x * x) : [];
 }
 
 //Objects 10:2 getOddElementsAtProperty
 function getOddElementsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? []
-    : obj[key].filter(el => el % 2 !== 0);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].filter(x => x % 2 !== 0) : [];
 }
 
 //Objects 10:3 getEvenElementsAtProperty
 function getEvenElementsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key] ? []
-    : obj[key].filter(el => el % 2 === 0);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].filter(x => x % 2 === 0) : [];
 }
 
 //Objects 11:1 getSmallestElementAtProperty
 function getSmallestElementAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? undefined
-    : obj[key].reduce((acc, cur) => acc <= cur ? acc : cur);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].reduce((acc, cur) => acc <= cur ? acc : cur) : undefined;
 }
 
 //Objects 11:2 getLargestElementAtProperty
 function getLargestElementAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? undefined
-    : obj[key].reduce((acc, cur) => acc >= cur ? acc : cur);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].reduce((acc, cur) => acc >= cur ? acc : cur) : undefined;
 }
 
 //Objects 11:3 getAllButLastElementOfProperty
 function getAllButLastElementOfProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? []
-    : obj[key].slice(0, obj[key].length - 1);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].slice(0, obj[key].length - 1) : [];
 }
 
 //Objects 11:4 getElementOfArrayProperty
 function getElementOfArrayProperty(obj, key, index) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? undefined
-    : obj[key][index];
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key][index] : undefined;
 }
 
 /* PART 5 */
