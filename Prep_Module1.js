@@ -560,8 +560,7 @@ function filterOddElements(arr) {
 
 //Array Methods 10:3 computeProductOfAllElements
 function computeProductOfAllElements(arr) {
-  if (arr.length === 0) return 0;
-  return arr.reduce((acc, cur) => acc * cur);
+  return arr.length === 0 ? 0 : arr.reduce((acc, cur) => acc * cur);
 }
 
 //Array Methods 11:1 filterEvenElements
@@ -578,14 +577,8 @@ function getLengthOfShortestElement(arr) {
 
 //Array Methods 11:3 getLongestElement
 function getLongestElement(arr) {
-  if (arr.length === 0) return '';
-  let longest = arr[0];
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i].length > longest.length) {
-      longest = arr[i];
-    }
-  }
-  return longest;
+  return arr.length === 0 ? ''
+    : arr.reduce((acc, cur) => acc.length > cur.length ? acc : cur);
 }
 
 //Array Methods 12:1 findSmallestElement
