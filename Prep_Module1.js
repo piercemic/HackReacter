@@ -746,9 +746,9 @@ function calculateBillTotal(preTaxAndTipAmount) {
 //Iteration 2:1 getStringLength
 function getStringLength(string) {
   let count = 0;
-  while (string !== '') {
-      string = string.slice(1);
-      count++;
+  while (string) {
+    string = string.slice(1);
+    count++;
   }
   return count;
 }
@@ -760,74 +760,64 @@ function joinArrayOfArrays(arr) {
 
 //Objects 12:1 getProductOfAllElementsAtProperty
 function getProductOfAllElementsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? 0
-    : obj[key].reduce((acc, cur) => acc * cur);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].reduce((acc, cur) => acc * cur) : 0;
 }
 
 //Advanced 5:1 sumDigits
 function sumDigits(num) {
-  let sum = 0;
-  let isNeg = false;
+  let neg = false;
   if (num < 0) {
-    isNeg = true;
+    neg = true;
+    num = Math.abs(num);
   }
-  num = Math.abs(num);
-  const numbers = num.toString();
-  let firstValue;
-  for (let i = 0; i < numbers.length; i++) {
-    if (i === 0) {
-      firstValue = numbers[i];
-    }
-    sum += Number.parseInt(numbers[i]);
+  num = num.toString();
+  let sum = 0;
+  const firstValue = Number(num[0]);
+  for (let i = 0; i < num.length; i++) {
+    sum += Number(num[i]);
   }
-  if (isNeg) {
-    return sum - (firstValue * 2);
-  } else {
-    return sum;
-  }
+  return neg ? sum - (firstValue * 2) : sum;
 }
 
 //Objects 13:1 getSumOfAllElementsAtProperty
 function getSumOfAllElementsAtProperty(obj, key) {
-  return !Array.isArray(obj[key]) || !obj[key].length ? 0
-    : obj[key].reduce((acc, cur) => acc + cur);
+  return Array.isArray(obj[key]) && obj[key].length ?
+    obj[key].reduce((acc, cur) => acc + cur) : 0;
 }
 
 //Array Methods 15:1 findShortestWordAmongMixedElements
 function findShortestWordAmongMixedElements(arr) {
-  arr = arr.filter(el => typeof el === 'string');
-  if (!Array.isArray(arr) || !arr.length) return '';
-  return arr.reduce((a, b) => a.length <= b.length ? a : b);
+  let strings = arr.filter(x => typeof x === 'string');
+  if (!strings.length) return '';
+  return strings.reduce((a, b) => a.length <= b.length ? a : b);
 }
 
 //Array Methods 15:2 findSmallestNumberAmongMixedElements
 function findSmallestNumberAmongMixedElements(arr) {
-  arr = arr.filter(el => typeof el === 'number');
-  if (!Array.isArray(arr) || !arr.length) return 0;
-  return Math.min(...arr);
+  let digits = arr.filter(x => typeof x === 'number');
+  return !digits.length ? 0 : Math.min(...digits);
 }
 
 //Array Methods 16:1 getLongestWordOfMixedElements
 function getLongestWordOfMixedElements(arr) {
-  arr = arr.filter(el => typeof el === 'string');
-  if (!Array.isArray(arr) || !arr.length) return "";
-  return arr.reduce((a, b) => a.length >= b.length ? a : b);
+  let strings = arr.filter(x => typeof x === 'string');
+  return !strings.length ? '' : strings.reduce((a, b) => a.length >= b.length ? a : b);
 }
 
 //Array Methods 16:2 getLargestNumberAmongMixedElements
 function getLargestNumberAmongMixedElements(arr) {
-  arr = arr.filter(el => typeof el === 'number');
-  if (!Array.isArray(arr) || !arr.length) return 0;
-  return Math.max(...arr);
+  let nums = arr.filter(x => typeof x === 'number');
+  return !nums.length ? 0 : Math.max(...nums);
 }
 
 //Iteration 3:1 computeSummationToN
 function computeSummationToN(n) {
-  let range = [];
-  for (let i = 0; i <= n; i++) {
-    range.push(i);
+  let sum = 0;
+  for (let i = 1; i <= n; i++) {
+    sum += i;
   }
-  return range.reduce((acc, cur) => acc + cur);
+  return sum;
 }
 
 //Conditionals 8:1 convertScoreToGrade
