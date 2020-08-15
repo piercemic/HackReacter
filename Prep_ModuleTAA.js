@@ -53,3 +53,78 @@ let redWinner = checkWinner([0,0,0, 'red', 'red', 'red', 'red']);
 console.log(redWinner); //-> 'Red Wins!'
 let draw = checkWinner(['red', 'red', 'red', 'black', 'red', 'black', 0]);
 console.log(draw); // -> 'Draw!'
+
+//A Request From Corporate - Difficulty: About even with TAA
+function generateSampleView(apiCall) {
+  let userData = [];
+  for (let key in apiCall){
+    if (apiCall[key].id % 2 !== 0) {
+      userData.push(apiCall[key].email);
+    } else {
+      const address = apiCall[key].address
+      userData.push(`${address.street}, ${address.suite}, ${address.city}, ${address.zipcode}`);
+    }
+  }
+  return userData;
+ }
+ function assertArraysEqual(actual, expected, testName) {
+   const lengths = actual.length === expected.length;
+   let values = true;
+   for (let i = 0; i < expected.length; i++) {
+     if (expected[i] !== actual[i]) {
+       values = false;
+       break;
+     }
+   }
+   console.log(lengths && values ? 'passed' : 'failed');
+ }
+ var users = [
+   {
+     "id": 1,
+     "name": "Leanne Graham",
+     "username": "Bret",
+     "email": "Sincere@april.biz",
+     "address": {
+       "street": "Kulas Light",
+       "suite": "Apt. 556",
+       "city": "Gwenborough",
+       "zipcode": "92998-3874",
+       "geo": {
+         "lat": "-37.3159",
+         "lng": "81.1496"
+       }
+     },
+     "phone": "1-770-736-8031 x56442",
+     "website": "hildegard.org",
+     "company": {
+       "name": "Romaguera-Crona",
+       "catchPhrase": "Multi-layered client-server neural-net",
+       "bs": "harness real-time e-markets"
+     }
+   },
+   {
+     "id": 2,
+     "name": "Ervin Howell",
+     "username": "Antonette",
+     "email": "Shanna@melissa.tv",
+     "address": {
+       "street": "Victor Plains",
+       "suite": "Suite 879",
+       "city": "Wisokyburgh",
+       "zipcode": "90566-7771",
+       "geo": {
+         "lat": "-43.9509",
+         "lng": "-34.4618"
+       }
+     },
+     "phone": "010-692-6593 x09125",
+     "website": "anastasia.net",
+     "company": {
+       "name": "Deckow-Crist",
+       "catchPhrase": "Proactive didactic contingency",
+       "bs": "synergize scalable supply-chains"
+     }
+   }
+ ];
+ const expected = ["Sincere@april.biz", "Victor Plains, Suite 879, Wisokyburgh, 90566-7771"]
+ assertArraysEqual(generateSampleView(users), expected, 'API Data Call - Odds: Email, Evens: Address');
