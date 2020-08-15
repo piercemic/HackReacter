@@ -1,27 +1,14 @@
 /* MODULE 3: Live Performance Exercises */
 
 //Flipper
-//FUNCTION DEFINITION
-function flipPairs(sentence) {
-  //variable that stores result
-  //iterate over the array
-    //if the next index is equal to undefined
-      //then add the current value to the result
-    //otherwise
-      //add the next value first, the the current value
-  //return result variable
-  let flipper = '';
-  for (let i = 0; i < sentence.length; i += 2) {
-    if (sentence[i +1 ] === undefined) {
-      flipper += sentence[i];
-    } else {
-      flipper += sentence[i + 1] + sentence[i];
-    }
+function flipPairs(string) {
+  let flipped = '';
+  for (let i = 0; i < string.length; i += 2) {
+    flipped += i === string.length - 1 ? string[i]
+      : string[i + 1] + string[i];
   }
-  return flipper;
+  return flipped;
 }
-
-//ASSERTION FUNCTION
 function assertEqual(actual, expected, testName) {
   if (actual === expected) {
     console.log('passed');
@@ -29,44 +16,29 @@ function assertEqual(actual, expected, testName) {
     console.log(`${testName}\n${expected}\n${actual}`);
   }
 }
-
-//TEST CASE
 var input = `check out how interesting this problem is, it\'s insanely interesting!`;
 var output = flipPairs(input);
 const expectedSentence = `hcce kuo toh wnietertsni ghtsip orlbmei ,si 't sniasenyli tnreseitgn!`;
 assertEqual(output, expectedSentence, 'Should Flip Each Pair');
 
 //Big Flipper
-//FUNCTION DEFINTION
-function flipEveryNChars(sentence, number) {
-  //variable that stores result string
-  let bigFlipper = '';
-  //iterate over the sentence
-  for (let i = 0; i < sentence.length; i += number) {
-    //reverse the current value to the next 4 values
-    let flipped = sentence.slice(i, i + 5).split('');
-    console.log(flipped);
-    //add to the result string
-    bigFlipper += flipped.reverse().join('');
+function flipEveryNChars(string, num) {
+  let flipped = '';
+  for (let i = 0; i < string.length; i += num) {
+    let mini = string.slice(i, i + num).split('');
+    if (mini.includes(undefined)) {
+      while (mini.includes(undefined)) {
+        mini = mini.slice(0, mini.length - 1);
+      }
+      flipped += mini;
+    } else {
+      flipped += mini.reverse().join('');
+    }
   }
-  //retrun result string
-  return bigFlipper;
+  return flipped;
 }
-
-//ASSERTION FUNCTION
-function assertEqual(actual, expected, testName) {
-  if (actual === expected) {
-    console.log('passed');
-  } else {
-    console.log(`${testName}\n${expected}\n${actual}`);
-  }
-}
-
-//TEST CASE
-var input = 'a short example';
+var input = '123456789012345678901';
 var output = flipEveryNChars(input, 5);
-const expectedOutput = `ohs axe trelpma`;
-assertEqual(output, expectedOutput, 'Should FLip Every 5 Characters')
 
 //Outliers
 function detectOutlierValue(string) {
@@ -186,11 +158,11 @@ assertArraysEqual(pair, expectedPair, 'Should Find Pair Totaling Sum');
 //Rotate This
 //FUNCTION DEFINITION
 function isRotatedVersion(rotated, original) {
-  //variable that stores 2 copies of original 
+  //variable that stores 2 copies of original
   //iterate over the previous variable
     //if the index of rotated is not equal to neg 1
       //return true
-    //otherwise 
+    //otherwise
       //return false
   const duplicate = original + original;
   return duplicate.includes(rotated);
