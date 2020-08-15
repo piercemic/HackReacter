@@ -289,43 +289,24 @@ var flatList = 'Brunello Cucinelli, tasselled black low-top lace-up, 1000\nBrune
 assertEqual(renderInventory(currentInventory), flatList);
 
 //Fashion Inventory Part-B
-//FUNCTION DEFINITION
 function calculateAveragePricePerDesigner(inventory) {
-  //variable that stores object of designer shoes
-  //iterate over the intentory
-    //variable that stores the brand name
-    //variable taht stores the shoes
-    //variable that stores the sum price
-    //iterate over the shoes
-      //add the shoe price to result
-    //add the name and price to designer object
-  //return the object of array
-  let designerPrice = {designers:[]};
+  let actual = {'designers': []};
   for (let i = 0; i < inventory.length; i++) {
-    const brand = inventory[i].name;
-    const shoes = inventory[i].shoes;
-    let sum = 0;
-    for (let j = 0; j < shoes.length; j++) {
-      sum += shoes[j].price;
+    let brand = inventory[i].name;
+    let shoes = inventory[i].shoes;
+    let total = 0;
+    for (let key in shoes) {
+      total += shoes[key].price;
     }
-    const average = sum / shoes.length;
-    designerPrice.designers.push({name: brand, averagePrice: average});
+    actual.designers.push({name: brand, averagePrice: total / shoes.length})
   }
-  return designerPrice;
+  return actual;
 }
-
-//ASSERTION FUNCTION
-function assertObjectEqual(actual, expected, testName) {
+function assertObjectsEqual(actual, expected) {
   actual = JSON.stringify(actual);
   expected = JSON.stringify(expected);
-  if (actual === expected) {
-    console.log('passed');
-  } else {
-    console.log(`${testName} Failed Expected\n${expected}\nActual\n${actual}`);
-  }
+  console.log(actual === expected ? 'pass' : `${actual}\n${expected}`);
 }
-
-//TEST CASE
 var currentInventory = [
   {
     name: 'Brunello Cucinelli',
@@ -344,8 +325,7 @@ var currentInventory = [
     ]
   }
 ];
-const actualInventory = calculateAveragePricePerDesigner(currentInventory);
-var expectedInventory = {
+var expected = {
   'designers': [
     {
       'name': 'Brunello Cucinelli',
@@ -357,4 +337,4 @@ var expectedInventory = {
     }
   ]
 };
-assertObjectEqual(actualInventory, expectedInventory, 'Should Render Designers Name & Average Price');
+assertObjectsEqual(calculateAveragePricePerDesigner(currentInventory), expected)
