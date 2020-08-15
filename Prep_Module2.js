@@ -376,3 +376,98 @@ function listAllBlackShoes(inventory) {
  ];
  var expected = `Brunello Cucinelli, tasselled black low-top lace-up, 1000\nGucci, black leather laced sneakers, 900\n`
  assertEqual(listAllBlackShoes(currentInventory), expected)
+
+//Fashion Inventory Part-D
+function generateLaceDetails(inventory){
+  let laces = [];
+  for (let i = 0; i < inventory.length; i++) {
+    let shoes = inventory[i].shoes;
+    for (let key in shoes) {
+      if (shoes[key].name.includes('lace')) {
+        const words = shoes[key].name.split(' ');
+        const idx = indexOfLace(words);
+        laces.push({nameWords: words, targetWordIndex: idx});
+      }
+    }
+  }
+  return laces;
+}
+function indexOfLace(words) {
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].includes('lace')) return i;
+  }
+  return -1;
+}
+function assertArraysEqual(actual, expected) {
+  const lengths = actual.length === expected.length;
+  let values = true;
+  for (let key in expected) {
+    //console.log(expected[key]);
+    for (let i = 0; i < expected[key].nameWords.length; i++) {
+      if (expected[key].nameWords[i] !== actual[key].nameWords[i]) values = false;
+      break;
+    }
+    if (expected[key].targetWordIndex !== actual[key].targetWordIndex) {
+      values = false;
+      break;
+    }
+  }
+  console.log(lengths && values ? 'pass' : `${actual}\n${expected}`);
+}
+var expectedResult = [
+  {
+    "nameWords": [
+      "tasselled",
+      "black",
+      "low-top",
+      "lace-up"
+    ],
+    "targetWordIndex": 3
+  },
+  {
+    "nameWords": [
+      "tasselled",
+      "green",
+      "low-top",
+      "lace-up"
+    ],
+    "targetWordIndex": 3
+  },
+  {
+    "nameWords": [
+      "red",
+      "leather",
+      "laced",
+      "sneakers"
+    ],
+    "targetWordIndex": 2
+  },
+  {
+    "nameWords": [
+      "black",
+      "leather",
+      "laced",
+      "sneakers"
+    ],
+    "targetWordIndex": 2
+  }
+];
+var currentInventory = [
+  {
+    name: 'Brunello Cucinelli',
+    shoes: [
+      {name: 'tasselled black low-top lace-up', price: 1000},
+      {name: 'tasselled green low-top lace-up', price: 1100},
+      {name: 'plain beige suede moccasin', price: 950},
+      {name: 'plain olive suede moccasin', price: 1050}
+    ]
+  },
+  {
+    name: 'Gucci',
+    shoes: [
+      {name: 'red leather laced sneakers', price: 800},
+      {name: 'black leather laced sneakers', price: 900}
+    ]
+  }
+];
+assertArraysEqual(generateLaceDetails(currentInventory),expectedResult);
