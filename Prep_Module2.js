@@ -338,3 +338,41 @@ var expected = {
   ]
 };
 assertObjectsEqual(calculateAveragePricePerDesigner(currentInventory), expected)
+
+//Fashion Inventory Part-C
+function listAllBlackShoes(inventory) {
+  let blackShoes = '';
+  for (let i = 0; i < inventory.length; i++) {
+    let brand = inventory[i].name;
+    let shoes = inventory[i].shoes;
+    for (let key in shoes) {
+      if (shoes[key].name.includes('black')) {
+        blackShoes += `${brand}, ${shoes[key].name}, ${shoes[key].price}\n`;
+      }
+    }
+  }
+  return blackShoes;
+ }
+ function assertEqual(actual, expected) {
+   console.log(actual === expected ? 'pass': `${actual}\n${expected}`);
+ }
+ var currentInventory = [
+   {
+     name: 'Brunello Cucinelli',
+     shoes: [
+       {name: 'tasselled black low-top lace-up', price: 1000},
+       {name: 'tasselled green low-top lace-up', price: 1100},
+       {name: 'plain beige suede moccasin', price: 950},
+       {name: 'plain olive suede moccasin', price: 1050}
+     ]
+   },
+   {
+     name: 'Gucci',
+     shoes: [
+       {name: 'red leather laced sneakers', price: 800},
+       {name: 'black leather laced sneakers', price: 900}
+     ]
+   }
+ ];
+ var expected = `Brunello Cucinelli, tasselled black low-top lace-up, 1000\nGucci, black leather laced sneakers, 900\n`
+ assertEqual(listAllBlackShoes(currentInventory), expected)
