@@ -162,3 +162,40 @@ solution([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20
 // returns "-6,-3-1,3-5,7-11,14,15,17-20"
 solution([-4, -3, -2, -1, 2, 3, 5, 6, 12, 13, 14, 15, 17]);
 // returns "-4--1,2,3,5,6,12-15,17"
+
+//Split Strings - Difficulty: About even with the TAA
+function splitPairs(input) {
+  if (!input.length) return [];
+  let result = [];
+  if (input.length % 2 === 0) {
+    for (let i = 0; i < input.length; i += 2) {
+      result.push(input[i] + input[i + 1]);
+    }
+  } else if (input.length % 2 !== 0) {
+    for (let j = 0; j < input.length; j += 2) {
+      if (input[j + 1] === undefined) {
+        result.push(input[j] + '_');
+        break;
+      }
+      result.push(input[j] + input[j + 1]);
+    }
+  }
+  return result;
+}
+
+//Highest Scoring Word - Difficulty: About even with TAA, perhaps more difficult
+function highestScoringWord(string) {
+  const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  let words = string.split(' ');
+  let chars = [];
+  for (let fi = 0; fi < words.length; fi++) {
+    let sum = 0;
+    for (let ii = 0; ii < words[fi].length; ii++) {
+      sum += alphabet.indexOf(words[fi][ii]);
+    }
+    chars.push(sum);
+  }
+  let longest = Math.max(...chars);
+  return words[chars.indexOf(longest)];
+}
+highestScoringWord('taxi volcano semynak');
