@@ -199,3 +199,18 @@ function highestScoringWord(string) {
   return words[chars.indexOf(longest)];
 }
 highestScoringWord('taxi volcano semynak');
+
+//Extract a Domain Name - Difficulty: More difficult than the TAA
+function getDomain(url) {
+  let domain = '';
+  if (url.includes('//') && url.includes('www.')) {
+    domain += url.slice(url.indexOf('www.') + 4)
+  } else if (url.includes('//')) {
+    domain += url.slice(url.indexOf('//') + 2)
+  }
+  domain = domain.substring(0, url.indexOf('.com') - );
+  return domain;
+}
+console.log(getDomain("http://github.com/carbonfive/raygun")) // "github"
+console.log(getDomain("http://www.zombie-bites.com")) // "zombie-bites"
+console.log(getDomain("https://www.cnet.com")) // "cnet"
